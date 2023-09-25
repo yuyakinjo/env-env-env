@@ -17,17 +17,17 @@ export class Environments {
       `gh api --method PUT -H "Accept: application/vnd.github+json" ${repos}/environments/${envName}`,
   };
 
-  static getJson<T>(command: string): T {
+  static runCommandAndToJson<T>(command: string): T {
     const executed = execSync(command);
     return JSON.parse(executed.toString()) as T;
   }
 
   static list() {
-    return this.getJson<RepoEnvironments>(Environments.command.list);
+    return this.runCommandAndToJson<RepoEnvironments>(Environments.command.list);
   }
 
   static delete(envName: string) {
-    return Environments.getJson<void>(Environments.command.delete(envName));
+    return Environments.runCommandAndToJson<void>(Environments.command.delete(envName));
   }
 
   constructor(envName: string) {
@@ -36,7 +36,7 @@ export class Environments {
   }
 
   create(envName: string) {
-    return Environments.getJson(Environments.command.create(envName));
+    return Environments.runCommandAndToJson(Environments.command.create(envName));
   }
 
   update() {}
