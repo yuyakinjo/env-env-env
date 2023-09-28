@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-
+type Command<P extends keyof typeof RepositorySecrets.command> = Parameters<(typeof RepositorySecrets.command)[P]>;
 export class RepositorySecrets {
   static command = {
     list: (envName?: string) => `gh secret list`,
@@ -18,19 +18,23 @@ export class RepositorySecrets {
     }
   }
 
-  static list(envName?: string) {
-    return this.runCommandAndToString(RepositorySecrets.command.list(envName));
+  static list(...args: Command<"list">) {
+    return this.runCommandAndToString(RepositorySecrets.command.list(...args));
   }
 
-  static delete(secretName: string, envName?: string) {
-    return RepositorySecrets.runCommandAndToString(RepositorySecrets.command.delete(secretName, envName));
+  static delete(...args: Command<"delete">) {
+    return this.runCommandAndToString(RepositorySecrets.command.delete(...args));
   }
 
-  constructor(filename: string, envName?: string) {
-    this.create(filename, envName);
+  static update(...args: Command<"update">) {
+    return this.runCommandAndToString(RepositorySecrets.command.update(...args));
   }
 
-  create(filename: string, envName?: string) {
-    return RepositorySecrets.runCommandAndToString(RepositorySecrets.command.create(filename, envName));
+  constructor(...args: Command<"create">) {
+    this.create(...args);
+  }
+
+  create(...args: Command<"create">) {
+    return RepositorySecrets.runCommandAndToString(RepositorySecrets.command.create(...args));
   }
 }
