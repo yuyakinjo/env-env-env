@@ -30,6 +30,11 @@ export class Environments {
     return Environments.runCommandAndToJson<void>(Environments.command.delete(envName));
   }
 
+  static async search(envName: string) {
+    const list = await Environments.list();
+    return list.environments.find((env) => env.name === envName);
+  }
+
   constructor(envName: string) {
     this.envName = envName;
     this.create(this.envName);
