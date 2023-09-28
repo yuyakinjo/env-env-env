@@ -1,10 +1,12 @@
-import { execSync } from "child_process";
+import { exec } from "./execPromise";
 type Command<P extends keyof typeof RepositorySecrets.command> = Parameters<(typeof RepositorySecrets.command)[P]>;
 export class RepositorySecrets {
   static command = {
     list: (envName?: string) => `gh secret list`,
-    delete: (secretName: string, envName?: string) => `gh secret delete ${secretName}`,
+    delete: (secretKey: string, envName?: string) => `gh secret delete ${secretKey}`,
     create: (filename: string, envName?: string) => `gh secret set -f ${filename}`,
+    update: (secretKey: string, secretValue: string, envName?: string) =>
+      `gh secret set ${secretKey} --body ${secretValue}`,
   };
 
   static async runCommandAndToString(command: string) {
