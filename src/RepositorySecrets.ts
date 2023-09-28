@@ -7,14 +7,14 @@ export class RepositorySecrets {
     create: (filename: string, envName?: string) => `gh secret set -f ${filename}`,
   };
 
-  static runCommandAndToString(command: string) {
+  static async runCommandAndToString(command: string) {
     try {
-      const executed = execSync(command);
+      const executed = await exec(command);
       console.info(`✅ repository secrets uploaded successfully`);
-      return executed.toString();
+      return executed.stdout;
     } catch (error) {
       console.error(`❌ repository secrets upload failed ${error}`);
-      return error;
+      return String(error);
     }
   }
 
