@@ -49,10 +49,6 @@ export class Environments {
     return Environments.runCommandAndToJson(Environments.command.create(envName));
   }
 
-  update() {}
-
-  sync() {}
-
   branchPolicies() {
     return BranchPolicies.list(this.envName);
   }
