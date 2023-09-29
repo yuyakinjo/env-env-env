@@ -21,10 +21,11 @@ export class BranchPolicies {
     return JSON.parse(executed.toString()) as T;
   }
 
-  static list(envName: string) {
-    const exist = !!Environments.list().environments.find((env) => env.name === envName)?.deployment_branch_policy;
+  static async list(envName: string) {
+    const list = await Environments.list();
+    const target = list.environments.find((env) => env.name === envName)?.deployment_branch_policy;
     const empty = { total_count: 0, branch_policies: [] };
-    return exist ? this.runCommandAndToJson<RepoEnvironments>(this.command.list(envName)) : empty;
+    return target ? this.runCommandAndToJson<RepoEnvironments>(this.command.list(envName)) : empty;
   }
 
   static delete(envName: string, branchPolicyId: string) {
