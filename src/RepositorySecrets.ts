@@ -1,4 +1,4 @@
-import { exec } from "./execPromise";
+import { exec } from "./lib/execPromise";
 type Command<P extends keyof typeof RepositorySecrets.command> = Parameters<(typeof RepositorySecrets.command)[P]>;
 export class RepositorySecrets {
   static command = {

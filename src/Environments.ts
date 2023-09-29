@@ -1,8 +1,8 @@
 import { execSync } from "child_process";
-import { RepoEnvironments } from "./types/RepoEnvironments";
+import { RepoEnvironments } from "./lib/types/RepoEnvironments";
 import { BranchPolicies } from "./BranchPolicies";
-import { repos } from "./repos";
-import { exec } from "./execPromise";
+import { repos } from "./lib/repos";
+import { exec } from "./lib/execPromise";
 
 // gh cli command api
 // https://cli.github.com/manual

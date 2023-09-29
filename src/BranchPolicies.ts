@@ -1,8 +1,8 @@
 import { execSync } from "child_process";
 import { Environments } from "./Environments";
-import { BranchPolicy } from "./types/RepoBranchPolicies";
-import { repos } from "./repos";
-import { RepoEnvironments } from "./types/RepoEnvironments";
+import { BranchPolicy } from "./lib/types/RepoBranchPolicies";
+import { repos } from "./lib/repos";
+import { RepoEnvironments } from "./lib/types/RepoEnvironments";
 
 export class BranchPolicies {
   envName = "";
